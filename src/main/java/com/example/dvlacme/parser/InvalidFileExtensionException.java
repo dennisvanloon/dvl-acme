@@ -1,4 +1,4 @@
-package com.example.dvlacme.service;
+package com.example.dvlacme.parser;
 
 public class InvalidFileExtensionException extends RuntimeException {
 

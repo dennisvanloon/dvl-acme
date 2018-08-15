@@ -1,37 +1,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
+<head>
+	<title>Customer Statement Processor</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body class="article">
 
-	<div th:if="${error}">
-		<h2 th:text="${error}"/>
+	<div id="header">
+    	<h1>Customer Statement Processor</h1>
 	</div>
 
-	<div th:if="${message}">
-		<h2 th:text="${message}"/>
-	</div>
+	<div id="content">
 
-	<div>
-		<form method="POST" enctype="multipart/form-data" action="/">
-			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-			</table>
-		</form>
-	</div>
+		<div id="preamble">
+			<div class="sectionbody">
+				<div class="paragraph">
+					<p>Welcome at Acme Inc. You can upload your monthly deliveries of customer statement records here. This information can be delivered in two formats, CSV and XML. These records will be validated and you will see the result.</p>
+					<p>If you want to see an overview of previously uploaded records you can go to <a href="/history">history</a></p>
+				</div>
+			</div>
+		</div>
 
-	<div>
-		<table>
-		<tr th:each="errorRecord : ${errorRecords}">
-			<td th:text="${errorRecord.record.description}">1</td>
-			<!--<td><a href="#" th:text="${message.title}">Title ...</a></td>-->
-			<!--<td th:text="${message.text}">Text ...</td>-->
-		</tr>
-		</table>
-		<!--<ul>-->
-			<!--<li th:each="file : ${files}">-->
-				<!--<a th:href="${file}" th:text="${file}" />-->
-			<!--</li>-->
-		<!--</ul>-->
-	</div>
+		<div class="sect1">
+			<div class="sectionbody">
+				<div class="paragraph">
+					<div>
+						<form method="POST" enctype="multipart/form-data" action="/">
+							<table>
+								<tr>
+									<td>File to upload:</td>
+									<td><input type="file" name="file" /></td>
+									<td><input type="submit" value="Upload" /></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+					<div th:if="${error}">
+						<h3 th:text="${error}"/>
+					</div>
+					<div th:if="${message}">
+						<h3 th:text="${message}"/>
+					</div>
+					<div th:if="${not #lists.isEmpty(errorRecords)}">
+						<table class="tableblock frame-all grid-all spread">
+							<th class="tableblock halign-left valign-top">Reference</th>
+							<th class="tableblock halign-left valign-top">Description</th>
+							<th class="tableblock halign-left valign-top">Errors</th>
+							<tr th:each="errorRecord : ${errorRecords}">
+								<td class="tableblock halign-left valign-top" th:text="${errorRecord.record.reference}"/>
+								<td class="tableblock halign-left valign-top" th:text="${errorRecord.record.description}"/>
+								<td class="tableblock halign-left valign-top" th:text="${#strings.listJoin(errorRecord.errors, ', ')}"/>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    </div>
 
 </body>
 </html>

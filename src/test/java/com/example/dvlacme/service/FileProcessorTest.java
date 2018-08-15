@@ -2,6 +2,8 @@ package com.example.dvlacme.service;
 
 import com.example.dvlacme.DataFactory;
 import com.example.dvlacme.domain.Record;
+import com.example.dvlacme.parser.FileParser;
+import com.example.dvlacme.parser.InvalidFileExtensionException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -1,6 +1,6 @@
-package com.example.dvlacme;
+package com.example.dvlacme.domain;
 
-import com.example.dvlacme.domain.Record;
+import com.example.dvlacme.DataFactory;
 import org.junit.Before;
 import org.junit.Test;
 

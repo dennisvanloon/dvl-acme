@@ -1,7 +1,9 @@
-package com.example.dvlacme.service;
+package com.example.dvlacme.validation;
 
 import com.example.dvlacme.domain.ErrorRecord;
 import com.example.dvlacme.domain.Record;
+import com.example.dvlacme.service.RecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -17,9 +19,13 @@ import java.util.stream.Collectors;
 @Service
 public class RecordValidator {
 
+    private RecordService recordService;
+
     private Validator validator;
 
-    public RecordValidator() {
+    @Autowired
+    public RecordValidator(RecordService recordService) {
+        this.recordService = recordService;
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
@@ -41,7 +47,9 @@ public class RecordValidator {
                 errors.add("Reference is duplicate within this set");
             }
 
-            //TODO check against service if reference already exists
+            if (recordService.exists(record.getReference())) {
+                errors.add("Reference was used during a previous upload");
+            }
 
             if (!errors.isEmpty()) {
                 result.add(new ErrorRecord(record, errors));

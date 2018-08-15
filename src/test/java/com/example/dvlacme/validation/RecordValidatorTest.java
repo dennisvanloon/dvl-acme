@@ -1,10 +1,14 @@
-package com.example.dvlacme.service;
+package com.example.dvlacme.validation;
 
 import com.example.dvlacme.DataFactory;
 import com.example.dvlacme.domain.ErrorRecord;
 import com.example.dvlacme.domain.Record;
+import com.example.dvlacme.service.RecordService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
@@ -15,7 +19,10 @@ import static org.junit.Assert.assertTrue;
 
 public class RecordValidatorTest {
 
-    private RecordValidator validator = new RecordValidator();
+    @Mock
+    RecordService recordService;
+
+    private RecordValidator validator;
 
     private Record record1;
 
@@ -23,8 +30,12 @@ public class RecordValidatorTest {
 
     private Record record3;
 
+
     @Before
     public void init() {
+        MockitoAnnotations.initMocks(this);
+        validator = new RecordValidator(recordService);
+
         record1 = DataFactory.makeReferenceRecord1();  //record with correct mutation
         record2 = DataFactory.makeReferenceRecord2();  //record with incorrect mutation
         record3 = DataFactory.makeReferenceRecord3();  //record with correct mutation
@@ -64,4 +75,6 @@ public class RecordValidatorTest {
         assertEquals("Reference is duplicate within this set", errorMessages.iterator().next());
 
     }
+
+    //TODO uitbreiden
 }

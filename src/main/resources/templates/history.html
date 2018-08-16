@@ -32,10 +32,16 @@
 							<th class="tableblock halign-left valign-top">Reference</th>
 							<th class="tableblock halign-left valign-top">Description</th>
 							<th class="tableblock halign-left valign-top">Account Number</th>
+							<th class="tableblock halign-left valign-top">Start Balance</th>
+							<th class="tableblock halign-left valign-top">Mutation</th>
+							<th class="tableblock halign-left valign-top">End Balance</th>
 							<tr th:each="record : ${records}">
 								<td class="tableblock halign-left valign-top" th:text="${record.reference}"/>
 								<td class="tableblock halign-left valign-top" th:text="${record.description}"/>
 								<td class="tableblock halign-left valign-top" th:text="${record.accountNumber}"/>
+								<td class="tableblock halign-left valign-top" th:text="${record.startBalance}"/>
+								<td class="tableblock halign-left valign-top" th:text="${record.mutation}"/>
+								<td class="tableblock halign-left valign-top" th:text="${record.endBalance}"/>
 							</tr>
 						</table>
 					</div>

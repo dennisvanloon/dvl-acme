@@ -24,7 +24,7 @@ public class CsvParserImpl implements FileParser {
             while ((line = br.readLine()) != null)   {
                 final String[] parts = StringUtils.split(line, ",");
                 Record record = new Record();
-                record.setReference(new Integer(parts[0]));
+                record.setReference(new Long(parts[0]));
                 record.setAccountNumber(parts[1]);
                 record.setDescription(parts[2]);
                 record.setStartBalance(new Double(parts[3]));

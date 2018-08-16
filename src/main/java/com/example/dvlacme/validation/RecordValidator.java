@@ -33,7 +33,7 @@ public class RecordValidator {
     public Collection<ErrorRecord> validateRecords(Collection<Record> records) {
 
         Set<ErrorRecord> result = new HashSet<>();
-        Set<Integer> duplicateReferences = determineDuplicateReferences(records);
+        Set<Long> duplicateReferences = determineDuplicateReferences(records);
 
         for (Record record: records) {
             Set<String> errors = new HashSet<>();
@@ -59,8 +59,8 @@ public class RecordValidator {
         return result;
     }
 
-    private Set<Integer> determineDuplicateReferences(Collection<Record> records) {
-        Map<Integer, Long> countPerReference = records.stream()
+    private Set<Long> determineDuplicateReferences(Collection<Record> records) {
+        Map<Long, Long> countPerReference = records.stream()
                 .collect(Collectors.groupingBy(record -> record.getReference(), Collectors.counting()));
         return countPerReference.entrySet().stream()
                 .filter(entry -> entry.getValue() > 1 )

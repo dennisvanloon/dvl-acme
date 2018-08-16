@@ -6,9 +6,9 @@ import java.util.Collection;
 
 public interface RecordService {
 
-    boolean exists(Integer reference);
+    boolean exists(Long reference);
 
-    void add(Record record);
+    Record add(Record record);
 
     void addAll(Collection<Record> records);
 

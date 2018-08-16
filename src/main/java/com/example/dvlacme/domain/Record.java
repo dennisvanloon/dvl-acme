@@ -1,10 +1,14 @@
 package com.example.dvlacme.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.AssertTrue;
 
+@Entity
 public class Record {
 
-    private Integer reference;
+    @Id
+    private Long reference;
 
     private String accountNumber;
 
@@ -16,11 +20,11 @@ public class Record {
 
     private Double endBalance;
 
-    public Integer getReference() {
+    public Long getReference() {
         return reference;
     }
 
-    public void setReference(Integer reference) {
+    public void setReference(Long reference) {
         this.reference = reference;
     }
 

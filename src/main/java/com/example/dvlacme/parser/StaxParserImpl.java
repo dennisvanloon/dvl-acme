@@ -45,7 +45,7 @@ public class StaxParserImpl implements FileParser {
                         while (attributes.hasNext()) {
                             Attribute attribute = attributes.next();
                             if (attribute.getName().toString().equals(REFERENCE)) {
-                                record.setReference(new Integer(attribute.getValue()));
+                                record.setReference(new Long(attribute.getValue()));
                             }
                         }
                     }

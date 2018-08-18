@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Statement Processor</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body class="article">
+
+<div id="header">
+    <h1>Customer Statement Processor</h1>
+</div>
+
+<div id="content">
+
+    <div id="preamble">
+        <div class="sectionbody">
+            <div th:if="${error}">
+                <h3 th:text="${error}"/>
+            </div>
+            <div class="paragraph">
+                <p>Go to <a href="/">homepage</a></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

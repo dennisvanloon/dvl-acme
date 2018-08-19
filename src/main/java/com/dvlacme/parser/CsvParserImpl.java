@@ -2,6 +2,8 @@ package com.dvlacme.parser;
 
 import com.dvlacme.domain.Record;
 import com.dvlacme.exception.AcmeApplicationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Service
 public class CsvParserImpl implements FileParser {
+
+    private final Logger LOG = LoggerFactory.getLogger(CsvParserImpl.class);
 
     @Value("${parser.error.csv}")
     private String parseError;
@@ -40,7 +44,8 @@ public class CsvParserImpl implements FileParser {
                 result.add(record);
             }
             br.close();
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            LOG.error("", e);
             throw new AcmeApplicationException(parseError);
         }
         return result;

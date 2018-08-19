@@ -2,6 +2,7 @@ package com.dvlacme.controller;
 
 import com.dvlacme.domain.ErrorRecord;
 import com.dvlacme.domain.Record;
+import com.dvlacme.exception.AcmeApplicationException;
 import com.dvlacme.service.FileProcessor;
 import com.dvlacme.service.RecordService;
 import org.slf4j.Logger;
@@ -82,10 +83,15 @@ public class FileUploadController {
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleException(HttpServletRequest request, Exception e) {
-        LOG.error("Request: " + request.getRequestURL() + " raised " + e);
+        LOG.error("Request: " + request.getRequestURL() + " raised " + e, e);
 
         ModelAndView modelAndView = new ModelAndView(VIEW_ERROR);
-        modelAndView.addObject(ATTRIBUTE_ERROR, e.getMessage());
+
+        if (e instanceof AcmeApplicationException) {
+            modelAndView.addObject(ATTRIBUTE_ERROR, e.getMessage());
+        } else {
+            modelAndView.addObject(ATTRIBUTE_ERROR, generalError);
+        }
         return modelAndView;
     }
 

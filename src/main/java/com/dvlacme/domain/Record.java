@@ -2,6 +2,7 @@ package com.dvlacme.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
@@ -11,17 +12,26 @@ public class Record {
     @GeneratedValue
     private long id;
 
-    @Column(unique=true)
+    @Column(unique=true, nullable = false)
+    @NotNull(message = "Reference cannot be null")
     private Long reference;
 
+    @Column(nullable = false)
+    @NotNull(message = "Accountnumber cannot be null")
     private String accountNumber;
 
     private String description;
 
+    @Column(nullable = false)
+    @NotNull(message = "Startbalance cannot be null")
     private BigDecimal startBalance;
 
+    @Column(nullable = false)
+    @NotNull(message = "Mutation cannot be null")
     private BigDecimal mutation;
 
+    @Column(nullable = false)
+    @NotNull(message = "Endbalance cannot be null")
     private BigDecimal endBalance;
 
     public long getId() {
@@ -78,6 +88,7 @@ public class Record {
 
     @AssertTrue(message = "Mutation is not correct")
     public boolean isMutationCorrect() {
-        return startBalance.add(mutation).compareTo(endBalance) == 0;
+        return startBalance != null && mutation != null && endBalance != null &&
+                startBalance.add(mutation).compareTo(endBalance) == 0;
     }
 }

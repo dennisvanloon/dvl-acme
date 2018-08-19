@@ -2,6 +2,8 @@ package com.dvlacme.parser;
 
 import com.dvlacme.domain.Record;
 import com.dvlacme.exception.AcmeApplicationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ import javax.xml.stream.events.XMLEvent;
 
 @Service
 public class StaxParserImpl implements FileParser {
+
+    private final Logger LOG = LoggerFactory.getLogger(StaxParserImpl.class);
 
     @Value("${parser.error.xml}")
     private String parseError;
@@ -97,6 +101,7 @@ public class StaxParserImpl implements FileParser {
                 }
             }
         } catch (XMLStreamException | NumberFormatException e) {
+            LOG.error("", e);
             throw new AcmeApplicationException(parseError);
         }
         return records;
